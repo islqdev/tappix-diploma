@@ -36,3 +36,7 @@
 - Сообщить руководителю о двух незакрытых эмпирических пунктах и получить решение.
 - При необходимости доступа к GitHub получить её логин; приватную ссылку одной
   отправкой нельзя сделать доступной без изменения прав.
+
+### 24 October PDF formatting update
+
+The English PDF adds a contents page mapping all 11 required submission components and direct links to the prototype and editable diagrams. It also records the merger and tag status after the main manuscript was drafted. The DOCX remains the editable manuscript; see `docs/report/en/manifest.json` for the exported file hashes. Real participant interviews and final supervisor approval are still pending.
