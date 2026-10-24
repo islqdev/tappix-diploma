@@ -14,11 +14,11 @@ Supervisor: Elvira Aitmukhanbetova
 
 ### Executive summary
 
-We propose a multi-tenant web platform for independent coffee shops, bakeries and salons in Kazakhstan. Guests keep digital loyalty cards, staff record qualifying visits and redeem rewards, and owners review activity within their own company. The platform administrator provisions businesses and assigns plans and a seven-day trial.
+At a café counter, a guest may have a card but neither the guest nor the cashier can easily tell which visit was last recorded. Tappix is our proposal for that small moment: a digital card, a staff confirmation step and a record the owner can inspect. The same design must work across cafés, bakeries and salons while keeping each business's data separate. An administrator would assign access and a seven-day trial.
 
-This submission defines the problem, evidence, requirements, architecture and evaluation method. Six newly designed static interface concepts illustrate the intended workflow. They are not screenshots of the existing application and do not demonstrate implemented functionality.
+For this milestone we prepared requirements, a literature review, product and technology comparisons, architecture diagrams and a plan for testing. The six screens later in this report are new static concepts. They explain the intended flow; they are not evidence that the diploma implementation already runs.
 
-The principal engineering question is whether the system can combine company isolation, consistent reward accounting and a usable service-counter workflow. Demand, willingness to pay and sales impact remain hypotheses for real-world evaluation.
+The difficult part is not drawing a card with six circles. We need to ensure that a visit is credited once, that a reward cannot be redeemed twice and that a cashier in one business never sees another business's guests. We have not yet measured whether owners want this service or will pay for it.
 
 ### Reading guide
 
@@ -34,13 +34,13 @@ Revision of 24 October 2026: expanded scientific review and explicit links betwe
 
 ## 01  Problem and project scope
 
-A limited product scope makes the system testable and keeps the two-student implementation feasible.
+We chose one end-to-end path to design first: a guest opens a card, staff confirm a visit, a reward becomes available, and the owner can account for the event.
 
 ### Problem and research question
 
-Paper cards and manually maintained records may leave owners without a consistent history of visits and rewards. Staff may need to resolve lost cards or disputed redemptions, while guests may struggle to understand their progress. These are proposed problems, not findings from interviews with Kazakhstani businesses.
+Consider a guest who loses a paper card after several visits. The cashier may trust the guest but cannot check a shared history; the owner may later find it hard to reconcile a redeemed reward. A digital record could help, but it also creates new work if scanning fails or the customer cannot recover an account. These are scenarios we need to check with real businesses in Kazakhstan, not findings from interviews.
 
-Research question: can a web-based loyalty system provide correct, company-isolated accounting and a clear customer-service workflow that compares favourably with a familiar manual process? The expected contribution is an implemented and reproducibly evaluated information system, not a novel loyalty algorithm.
+Our research question is practical: can a small business replace a paper or manual loyalty process with a web system whose records are correct, whose company boundaries hold, and whose counter workflow staff can actually use? The diploma contribution will be the implemented system and a reproducible evaluation of those properties, rather than a new loyalty algorithm.
 
 | User | Primary task | Access boundary |
 | --- | --- | --- |
@@ -77,15 +77,15 @@ The register contains twelve scientific publications [S1–S12], three product s
 
 ### Participation is not the same as loyalty
 
-Belli et al. [S1] synthesise 429 effect sizes and distinguish behavioural loyalty from attitudes toward a business. Chen et al. [S2] organise 131 publications by theory, context, programme characteristics and method. Together, they suggest that a programme should be described through its rules and setting before its effectiveness is assessed. A count of registered cards alone does not answer whether guests return more often.
+Belli et al. [S1] combine 429 effect sizes but separate repeated behaviour from favourable attitudes. Chen et al. [S2] review 131 publications and show how programme design and setting affect interpretation. That matters for our dashboard: issuing 90 cards does not show that 90 people returned. We therefore need event dates and a stated observation period before we call any guest a repeat visitor.
 
-Dorotic et al. [S9] explain why apparently conflicting results can coexist: programme effects vary across customer segments and markets. For Tappix, the initial unit of analysis should therefore be one business and its eligible guests. Aggregating unrelated salons and coffee shops into a single return rate would obscure different visit cycles.
+Dorotic et al. [S9] describe why programme findings differ between segments and markets. A salon visit may be months apart while a café visit may happen several times a week. We would mislead an owner if we mixed both businesses into one return-rate figure, so Tappix will calculate company-level measures using an explicit time window.
 
 ### Software can record an outcome without causing it
 
 Mittal et al. [S3] report positive associations between satisfaction and customer or firm outcomes across 245 articles, with contextual variation. Liu-Thompkins et al. [S4] examine cognitive, affective and social drivers across 319 studies. These findings make service quality and customer experience relevant context; they do not show that issuing a digital card produces profit.
 
-We consequently define the engineering contribution as reliable event recording, access boundaries and a usable counter workflow. Business benefit is a separate evaluation question. The owner dashboard will report visits and redemptions with named definitions, rather than displaying an unsupported sales-growth estimate.
+We will judge the software first by whether it records and retrieves the right events. A dashboard that says '204 visits' must point back to the same 204 eligible visit records. Whether those records help an owner make a better decision is a separate question for a pilot. The interface will not invent an uplift in sales.
 
 ### A specific design consequence
 
@@ -97,13 +97,13 @@ FR-06 requires dashboard totals to reproduce a known event dataset. This is a co
 
 Kivetz et al. [S8] study the goal-gradient mechanism in reward programmes. Nunes and Drèze [S12] show that an endowed start can change persistence even when the remaining effort is unchanged. Both concern how a goal is perceived; neither justifies treating an unearned visit as a real purchase.
 
-The concept therefore shows four confirmed visits out of six, a named reward and two remaining visits. If a business later offers a welcome credit, the interface and ledger must distinguish that promotion from a visit. We defer such promotions in the first implementation so the basic history stays easy to explain.
+We chose a specific example for the card: four confirmed visits towards a reward after the sixth, leaving two visits. It lets a guest understand the rule without interpreting a row of blank circles. A promotional welcome credit would need its own event type; calling it a visit would make the history false. We leave that promotion out of the first build.
 
 ### A mobile channel does not remove operational friction
 
 Son and Oh [S5] investigate reward redemption and engagement as loyalty becomes mobile. Their research motivates recording how guests use rewards over time, rather than counting enrolment alone. It does not establish that our web interface is preferable to a native wallet. We choose a link-based card to reduce installation steps and will test whether guests can find it again.
 
-The staff design includes confirmation before a visit and a separate redemption action. These choices are operational hypotheses: a fast scanner is of little use if a cashier cannot tell whether a timed-out request succeeded. The evaluation must include camera refusal and a response lost after the database commit.
+At the counter, the awkward case is a lost response after the server has saved a visit. A cashier who sees only an error may press Confirm again. Our design therefore needs a visible 'checking result' state and a safe retry that returns the first result. We will also test what happens when the camera is unavailable. These choices still need usability checks with real staff.
 
 ### Context changes the meaning of activity
 
@@ -119,13 +119,13 @@ P02 makes the reward and remaining effort visible. P03 and P04 separate an attem
 
 ### The selection problem
 
-Leenheer et al. [S10] use household panel data and model the decision to join a programme. The estimated programme effect is smaller when self-selection is considered. This matters because guests who already visit often may be the first to register. Comparing registered and unregistered guests once would confound the programme with their earlier behaviour.
+Leenheer et al. [S10] account for the fact that people choose whether to join a programme. When that choice is modelled, the estimated effect is smaller. In our setting, regular café guests might be the first to sign up. A simple comparison of registered and unregistered guests would confuse that pre-existing habit with a Tappix effect.
 
 Liu [S11] follows a convenience-store programme over time and finds different responses among initially heavy, moderate and light buyers. A single average can therefore hide which guests changed behaviour. Tappix should retain timestamps and programme versions so later analysis can distinguish existing regulars from newer guests.
 
 ### What the first pilot can answer
 
-A short pilot can establish whether a staff member records a valid visit without help, whether the reward is issued once, and whether the owner understands a metric. It cannot establish a stable retention effect for businesses with infrequent visits. A salon may require a longer observation window than a coffee shop; the period must be chosen before interpreting results.
+A first pilot can tell us whether a cashier can complete a visit without help, whether the same visit is recorded once and whether an owner understands the weekly figures. It cannot tell us that customer loyalty improved. A week may include several café visits but no second salon appointment. We need to choose the observation period for each business before drawing conclusions.
 
 For example, 45 repeat cards among 90 active cards in one week yields a 50% within-period repeat share. It says nothing about how many of last month’s guests returned this month. A retention cohort would require a separately specified starting population and follow-up window. The distinction is built into the metric definitions and usability questions.
 
@@ -157,11 +157,11 @@ Comparison method: documentation review of official product pages [P1–P3], not
 
 ### Manual alternatives and switching cost
 
-A paper card is simple to introduce but may not provide a shared owner history. A spreadsheet can record events without another subscription, at the cost of manual entry and access management. These are analytical assumptions to verify through observation. Keeping the current process is reasonable when switching costs exceed the expected benefit.
+The obvious alternative is to keep using paper. It costs little to start and staff already know it. A spreadsheet is another realistic choice if an owner is willing to enter each visit and manage access manually. We have not timed those workflows in a real venue yet. Tappix has to earn a switch by reducing a specific problem without slowing the queue.
 
 ### Proposed position of Tappix
 
-Tappix explores a standalone web card and staff workflow without requiring a cash-register replacement. The intended distinction is a small, understandable feature set with company-scoped access and explicit metric definitions. Existing products already cover much of the use case; this comparison does not establish that Tappix is better.
+Our proposed difference is a card that opens by link, a short staff flow and reports that explain exactly what they count. The system should fit beside an existing register rather than require a replacement. That is a design intention, not a verified advantage: the product comparison shows that existing services already cover many of the same tasks.
 
 Unverified areas include exact role permissions, Kazakh localisation, complete history exports, plan limits and data-hosting terms. Prices are not compared without matching service scope. Willingness to pay remains an open question.
 
@@ -206,7 +206,7 @@ Must denotes core acceptance; Should denotes a lower-priority capability after t
 
 ### Business rules that cannot rely on the interface
 
-A scanned QR or NFC link identifies a card; it does not authorise a visit. The trusted company context comes from the validated session and membership. An assigned plan is not proof of payment. Points are not transferable money, and a multi-card wallet does not merge businesses’ customer databases.
+Scanning a QR code tells the server which card to look up. It does not give the cashier permission to change that card. The server must take the company and staff rights from the authenticated session, then reject a card issued by another company. A guest may see several cards in one wallet, but the businesses must never share a customer database.
 
 ### Open decisions before implementation
 
@@ -229,13 +229,13 @@ These are planned acceptance checks, not claims that the new repository already 
 
 ### Accounting and session design
 
-Scope each idempotency key by company, actor and operation, and bind it to a request-body hash. Store the operation result in the same transaction as the visit or ledger change. Use database constraints and appropriate locking to enforce invariants. A retry after a lost response must recover the committed result rather than repeat the effect.
+Suppose the first visit request commits but the connection breaks before the cashier sees the reply. The cashier retries. We will give the operation a key tied to its company, actor, action and request body, save the result with the visit in one transaction, and return that same result on retry. Locking and database constraints must also prevent two different requests from redeeming one reward.
 
 Durable access versions prevent Redis resets or company reactivation from reviving revoked sessions. Tenant-scoped relational constraints and, where appropriate, row security add protection; neither replaces explicit authorisation. Log sensitive actions without recording tokens or unnecessary personal data.
 
 ### Operational boundary
 
-Keep PostgreSQL and Redis off public interfaces, protect private files through authorised access, and separate recovery credentials from the server. External encrypted backup storage has not been connected in the diploma repository. Before a pilot, validate actual restoration, alert delivery and expiry reminders independent of the application server.
+A local backup is useful after an accidental change, but it will not help if the server and its disks disappear together. Before a pilot we need encrypted copies of both the database and uploaded files outside that server, a separately stored recovery key, and a restore on a clean machine. We also need to see a real alert when a copy fails. Those checks have not been completed for this diploma implementation.
 
 ## 09  System context
 
@@ -261,11 +261,11 @@ Figure 2. Compact use-case view using UML-like notation in editable DOT. Dashed 
 
 ### A deliberate confirmation step
 
-Identifying a guest must not automatically credit a visit. Staff first see the matched company and current progress, then confirm one qualifying action. When a reward becomes available, redemption is a separate action recorded against the staff identity.
+The scanner should first show the card it found, its business and its current progress. Only after the cashier confirms a qualifying visit should the server write an event. Reaching six visits makes a reward available; using the reward later is another action and another record. This distinction lets a guest save the reward for the next visit.
 
 ### Failure and correction paths
 
-A foreign-company card produces a clear denial without guest details. A network timeout produces an uncertain state until the same operation can be checked or retried safely. Corrections must create auditable records rather than silently remove history. Exact correction and rollover rules require team review.
+If the scanned card belongs to another company, staff should see a short refusal without that guest's history. If the network times out, the screen cannot assume either success or failure; it must check the operation and allow a safe retry. A correction should create a traceable reversal instead of erasing the original visit. Who can authorise one is still undecided.
 
 ## 11  Component architecture
 
@@ -287,7 +287,7 @@ Figure 4. P01 shows separate loyalty cards; P02 explains the next reward and con
 
 ### Interaction intent
 
-The wallet brings verified cards together without combining programmes. The card view gives one primary action, a concrete reward and a count of remaining visits. Colour is supported by text and numbers. A visit history helps the guest understand changes.
+A guest could have a café card and a salon card under one login, much like choosing among cards in a wallet. The cards remain separate programmes. On each card we show the reward, confirmed progress and remaining visits in words as well as colour. The history should explain why the count changed, especially after a correction.
 
 These static SVG/PNG designs were created for this report. Buttons are illustrative; identity verification, QR presentation, navigation and history retrieval are not implemented by the images. The production interface may require Russian and Kazakh localisation.
 
@@ -301,7 +301,7 @@ Figure 5. P03 begins at 5/6 confirmed visits; the next valid visit enables the r
 
 ### States that must be tested
 
-The confirmation screen shows the matched company and intended effect before the write. After redemption succeeds, the interface must show the recorded result and remove the available redemption action. Disabling a button improves clarity but is not the protection against duplicate requests.
+Before submitting, the cashier sees the matched business and the action about to happen. After redemption, the screen should show when it was recorded and remove the available-reward action. A disabled button alone cannot stop a second request from another device; the server must enforce the single redemption.
 
 Test camera denial, a foreign-company card, an expired session, a timeout after commit and simultaneous redemption. An alternative lookup must preserve the same access checks. No real QR credential or customer identity appears in these concepts.
 
@@ -320,7 +320,7 @@ Figure 6. P05 uses a deliberately constructed example, not measurements from a r
 | Repeat guests | 45 of those cards have at least two visits; 45 / 90 = 50%. |
 | Rewards redeemed | 12 recorded redemptions during the period; 8 currently available rewards are a separate stock measure. |
 
-The bars use 18, 24, 21, 30, 36, 42 and 33 visits, which sum to 204. This checks internal arithmetic only. In the implemented system, selected company, branch, timezone and date interval must be explicit, and all totals must be reproducible from events.
+We deliberately made the sample chart add up: 18 + 24 + 21 + 30 + 36 + 42 + 33 = 204 visits. These are invented figures for checking the screen, not pilot data. In the working system the owner must see the selected company, branch, timezone and dates, and the total must be reproducible from recorded events.
 
 A period repeat-guest share is not a 30-day retention cohort and does not estimate incremental revenue. With no activity, the dashboard should show an explanatory empty state rather than artificial trends.
 
@@ -334,7 +334,7 @@ Figure 7. P06 illustrates a candidate pilot configuration. The displayed quotas 
 
 ### Plan and payment are different records
 
-The design separates the assigned plan from payment status. An administrator may provide trial access without recording a payment. Individual overrides must be visible alongside usage, and the server must enforce the effective values rather than trusting hidden interface controls.
+The administrator can grant a trial or assign a plan, but neither action means a payment was received. The interface should show an agreed limit, any business-specific override, current usage and what remains. The Go API must calculate and enforce the effective limit; hiding a button in the browser would not be sufficient.
 
 ### Trial boundary and data protection
 
@@ -359,11 +359,11 @@ The following thresholds are proposed experiment criteria. No experiment results
 
 ### Recovery targets and limits
 
-Proposed pilot targets are an RPO of up to 24 hours and an RTO of up to 4 hours. These are not achieved service guarantees. A daily backup can lose events since the last successful copy; a smaller RPO needs more frequent protection or WAL archiving. Retain the recovery key separately and alert on missing or failed backups.
+For a pilot we propose, rather than promise, a maximum data loss of 24 hours and a restoration time of four hours. Daily copies can still lose a day's visits. If that is unacceptable, we must increase backup frequency or archive database logs. We will measure both targets by restoring an encrypted database and file set away from the original server.
 
 ### Pilot interpretation
 
-After technical checks, a 2–3 business pilot can test operational fit. Record service changes, promotions, staffing and seasonality. A small uncontrolled pilot cannot establish general market demand or causal sales growth. Do not convert five usability participants into a market-success percentage.
+After technical tests, a small pilot with two or three businesses could reveal whether the workflow survives a real shift. We would record promotions, opening hours and staffing alongside visit data, because they affect the numbers. Even a successful pilot of that size would not prove demand across Kazakhstan or a causal rise in sales.
 
 ## 17  Work plan and collaboration
 
@@ -382,9 +382,9 @@ The first submission is due 24 October 2026. Dates for subsequent milestones rem
 
 ### Responsibilities and honest provenance
 
-Armat owns frontend, UX and visualisation. Yersultan owns Go, PostgreSQL, Redis and infrastructure. Each student uses their own account and records their own work. AI-prepared material committed by Armat is not represented as Yersultan’s personal contribution. The existing implementation and its Git history remain separate.
+We divided the implementation responsibilities by area: Armat will handle the interface, UX and charts; Yersultan will handle the Go service, data stores and deployment configuration. Work is attributed to the account that actually commits or reviews it. Materials prepared with AI under Armat's account do not become Yersultan's personal contribution merely because they fall in his assigned area.
 
-GitHub: islqdev/tappix-diploma. Yersultan’s Ersultan7 account has accepted collaborator access. PRs #1–6 form a dependent sequence and await his review. Merge in order after approval; create pre-defense-1 on the accepted revision and never move the tag. Automatic branch protection was not confirmed for the private repository; the agreed review procedure remains a team rule.
+The development repository is github.com/islqdev/tappix-diploma. PRs #1–6 contain the design-stage work and still await a personal review by Yersultan; he has collaborator access through Ersultan7. A separate public repository, github.com/islqdev/tappix-diploma-materials, lets the committee read the report and designs. It does not expose the private development history. The reviewed baseline and submission tag must still be created after the team checks the changes.
 
 ### Principal risks
 
@@ -418,9 +418,9 @@ Materials are mapped to the supplied first-pre-defense requirements; preparation
 
 ### What the team should do next
 
-The teacher requested at least 12 sources and more substantive presentation. This revision adds four scientific studies, thematic synthesis and traceable design decisions. Appendix A contains permitted AI role-play for requirements exploration; it supplies no real participant evidence. Ask the supervisor to confirm whether that exercise is acceptable for this milestone before treating the user-discussion criterion as satisfied.
+The teacher's two comments were direct: the report looked generated and it needed at least twelve sources. We kept twelve scientific publications and added concrete consequences for the system: what a 'repeat guest' means, why a registered card is not a loyalty result, and why a retry must not award a second visit. Appendix A is an AI exercise to expose possible objections. It does not count as conversations with actual owners, staff or guests.
 
-Yersultan should personally review the repository changes from his account. Address findings before merging and tagging the accepted baseline. Then implement the smallest working API/UI slice and extend it through testable, task-linked pull requests.
+Yersultan can review the diagrams and requirements with Armat on the same laptop while his laptop is unavailable. Armat may record that discussion under his own account with the exact points checked and who said what. It will not appear as a GitHub review from Ersultan7. The team should resolve any findings before merging; the next development step is one small API and UI path with tests.
 
 This edition replaces the previous Russian report and screenshots for presentation purposes. It does not replace the application, create customer data or establish production readiness.
 
@@ -654,9 +654,9 @@ Actual teacher feedback reported by Armat is separated from an AI-simulated advi
 
 ### Received feedback
 
-Armat relayed two comments from the teacher on 24 October 2026: the report looked generated, and it needed at least twelve sources. This is a student-reported summary; no signed review, original review file or acceptance of this revision was supplied.
+On 24 October 2026 Armat passed on two comments from the teacher: the writing sounded generated and the reference list needed at least twelve sources. We have the comments as reported by Armat; we do not have a signed review or acceptance of this revision.
 
-Response: this edition contains twelve scientific publications and fourteen official product or technical sources. The literature section now compares findings, explains limits and connects them to requirements and evaluation choices. Generic summaries have been replaced with specific examples such as the difference between repeat share and retention, and a retry after a lost server response.
+We revised the report around decisions a reader can inspect. The literature section now explains why enrolment is a weak outcome measure. The prototype distinguishes a visit from redemption. The evaluation plan includes a lost-response retry and a check that chart totals agree with events. The bibliography contains twelve scientific articles and fourteen official product or technical sources. Whether the new prose and evidence satisfy the teacher remains for the teacher to judge.
 
 ### Simulated adviser dialogue
 
