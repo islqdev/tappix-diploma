@@ -70,6 +70,18 @@ Milestone dates and the supervisor's account for access remain to be confirmed.
 
 ## Run and Test
 
+Repository checks (Node.js 22 and Git, no npm dependencies required):
+
+```sh
+node --check tests/repository.test.mjs
+node --test tests/repository.test.mjs
+```
+
+The checks validate directory structure, basic local Markdown links, ignore rules,
+common forbidden tracked artifacts and text whitespace. They do not establish
+application correctness or prove the absence of secrets. New test files must be
+staged before running checks that inspect the Git index.
+
 The application, Docker environment, and application test suites have not been
 implemented in this new repository. Their tasks must be completed before a runnable
 release is claimed. No command here points to the working prototype's database.
