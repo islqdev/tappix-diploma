@@ -22,13 +22,13 @@ YouTrack: https://tappix-diploma.youtrack.cloud/projects/DIP/issues
 | [DIP-5](https://tappix-diploma.youtrack.cloud/issue/DIP-5) | Армат | Next.js shell и тесты первого маршрута | После DIP-3 и контракта DIP-4; дата не согласована |
 | [DIP-6](https://tappix-diploma.youtrack.cloud/issue/DIP-6) | Ерсұлтан | Изолированный Docker/Nginx, запуск и smoke test | После DIP-4/5; дата не согласована |
 | [DIP-7](https://tappix-diploma.youtrack.cloud/issue/DIP-7) | Ерсұлтан | ER, миграции, tenant-связи и проверка отката | После правил предметной области; дата не согласована |
-| [DIP-8](https://tappix-diploma.youtrack.cloud/issue/DIP-8) | Армат | Доказательная база и оценка; материалы выделены в DIP-11 | Реальные обсуждения и отзыв ещё нужны |
+| [DIP-8](https://tappix-diploma.youtrack.cloud/issue/DIP-8) | Армат | Доказательная база и оценка; материалы выделены в DIP-11 | ИИ-сценарии подготовлены; реальная валидация и принятие руководителем ожидаются |
 | [DIP-9](https://tappix-diploma.youtrack.cloud/issue/DIP-9) | Армат | Доступы команды и согласованные сроки | GitHub принят, YouTrack создан; даты следующих этапов неизвестны |
 | [DIP-10](https://tappix-diploma.youtrack.cloud/issue/DIP-10) | Армат | Ограничение защиты main и порядок ревью | 24.10.2026; ограничение описано ниже |
-| [DIP-11](https://tappix-diploma.youtrack.cloud/issue/DIP-11) | Армат | 8 научных работ, 3 аналога × 8 критериев, 3 выбора технологий и план оценки; PR #3 | 24.10.2026; ревью |
+| [DIP-11](https://tappix-diploma.youtrack.cloud/issue/DIP-11) | Армат | 12 научных работ, 3 аналога × 8 критериев, 3 выбора технологий и план оценки; PR #3, расширение в PR #6 | 24.10.2026; ревью |
 | [DIP-12](https://tappix-diploma.youtrack.cloud/issue/DIP-12) | Армат | Context, Use Case, Component: DOT + PNG + SVG; PR #4 | 24.10.2026; ревью |
 | [DIP-13](https://tappix-diploma.youtrack.cloud/issue/DIP-13) | Армат | 6 новых SVG/PNG-макетов; прежний прототип PR #5 заменён в PR #6 | 24.10.2026; ревью |
-| [DIP-14](https://tappix-diploma.youtrack.cloud/issue/DIP-14) | Армат | Английский отчёт DOCX/PDF в Git, 22 страницы, протокол исследования и форма отзыва, матрица критериев | 24.10.2026 |
+| [DIP-14](https://tappix-diploma.youtrack.cloud/issue/DIP-14) | Армат | Английский отчёт DOCX/PDF в Git, 26 страниц, 12 научных источников, ИИ-сценарии и реакция на замечание преподавателя, матрица критериев | 24.10.2026 |
 
 ## Git и честная фиксация вклада
 

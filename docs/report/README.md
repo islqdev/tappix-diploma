@@ -1,8 +1,8 @@
 # Tappix first pre-defense report
 
-English edition, 24 October 2026. [PDF](en/Tappix-Pre-Defense-Report-EN.pdf) · [Editable Word](en/Tappix-Pre-Defense-Report-EN.docx).
+English revision, 24 October 2026. 26 pages; 12 scientific studies and 14 official sources.
 
-This source mirrors the report text. Appendices A and B contain unfilled research and supervisor-feedback forms. They do not assert that discussions or approval have occurred.
+[PDF](en/Tappix-Pre-Defense-Report-EN.pdf) · [Editable Word](en/Tappix-Pre-Defense-Report-EN.docx)
 
 First pre-defense report
 
@@ -24,13 +24,13 @@ The principal engineering question is whether the system can combine company iso
 
 | Part | Pages | Purpose |
 | --- | --- | --- |
-| Research and scope | 2–6 | Problem, literature, alternatives and technology choices |
-| System design | 7–11 | Requirements, safeguards and architecture |
-| Concept prototype | 12–15 | Guest, staff, owner and administrator journeys |
-| Evaluation and delivery | 16–20 | Experiments, work plan, criteria and references |
-| Research records | 21–22 | User discussion protocol and supervisor feedback form |
+| Research and scope | 2–7 | Problem, 12 research studies, alternatives and choices |
+| System design | 8–12 | Requirements, safeguards and architecture |
+| Concept prototype | 13–16 | Guest, staff, owner and administrator journeys |
+| Evaluation and delivery | 17–22 | Experiments, work plan, criteria and 26 references |
+| Design discussions | 23–26 | AI role simulations and response to teacher feedback |
 
-Status: design package for review. User interviews, substantive supervisor feedback and teammate approval remain outstanding. The existing Tappix implementation is a separate reference project; this report does not claim a new production release.
+Revision of 24 October 2026: expanded scientific review and explicit links between evidence, design choices and evaluation. The appendix contains AI-simulated discussions, not participant interviews. Teacher feedback is recorded separately from the simulated adviser dialogue.
 
 ## 01  Problem and project scope
 
@@ -65,55 +65,82 @@ Final outputs should include source code, database migrations, an OpenAPI contra
 
 The core includes visit-based rewards, loyalty points, displayed discount rules, a guest wallet, owner metrics and administrator-assigned access. Points are programme units rather than money; the wallet does not hold payment cards. Automated billing, POS integrations, mass paid messaging, AI recommendations and native apps are deferred.
 
-## 02  Research foundations
+## 02  What loyalty research establishes
 
-Thematic review • eight scientific studies • access checked in the source register on 24 October 2026
+Twelve scientific publications inform the design. Their findings do not establish demand for Tappix in Kazakhstan.
 
-The review uses publisher pages and DOI records for loyalty programmes, digital engagement, reward redemption and customer retention. It is not an exhaustive systematic review. Paywalled papers were considered only through accessible abstracts or excerpts; no full-text access is implied.
+### Review method and boundaries
 
-### S1  Loyalty programmes have context-dependent effects
+We selected research on programme effectiveness, reward progress, digital engagement and measurement bias. The search combined these themes with loyalty programme and customer retention terms. Publisher abstracts, accessible article sections and author or university copies were checked on 24 October 2026. This is a focused narrative review, not a systematic review with an exhaustive search or a quality-scored study pool.
 
-Belli et al. (2022) synthesise 429 effect sizes across four decades of loyalty-programme research. Their results distinguish behavioural effects from attitudinal loyalty and indicate variation across programmes and industries. For Tappix, repeat visits and subjective evaluations should be measured separately. A pooled effect is not a forecast for an individual coffee shop. Access: publisher abstract and metadata.
+The register contains twelve scientific publications [S1–S12], three product sources [P1–P3] and eleven technical sources [T1–T11]. Older studies are retained for their experimental or measurement contribution; recent studies add digital and contextual evidence. Where full text was unavailable, conclusions are limited to the accessible abstract and excerpts.
 
-### S2  Programme design and research context matter
+### Participation is not the same as loyalty
 
-Chen, Mandler and Meyer-Waarden (2021) review 131 publications using the theory, context, characteristics and methodology framework. Their review motivates an explicit description of the business segment, reward rules and evaluation method. It does not establish demand in Kazakhstan. Access: abstract and publicly available publisher excerpts.
+Belli et al. [S1] synthesise 429 effect sizes and distinguish behavioural loyalty from attitudes toward a business. Chen et al. [S2] organise 131 publications by theory, context, programme characteristics and method. Together, they suggest that a programme should be described through its rules and setting before its effectiveness is assessed. A count of registered cards alone does not answer whether guests return more often.
 
-### S3  Satisfaction is not a causal profit estimate
+Dorotic et al. [S9] explain why apparently conflicting results can coexist: programme effects vary across customer segments and markets. For Tappix, the initial unit of analysis should therefore be one business and its eligible guests. Aggregating unrelated salons and coffee shops into a single return rate would obscure different visit cycles.
 
-Mittal et al. (2023) synthesise 535 correlations from 245 articles relating satisfaction to loyalty behaviours and financial outcomes. Associations vary by context and do not establish that deploying Tappix causes profit growth. Our evaluation therefore separates software correctness, usability and potential business effects. Access: abstract and introduction of the open article.
+### Software can record an outcome without causing it
 
-### S4  Rewards are one of several loyalty mechanisms
+Mittal et al. [S3] report positive associations between satisfaction and customer or firm outcomes across 245 articles, with contextual variation. Liu-Thompkins et al. [S4] examine cognitive, affective and social drivers across 319 studies. These findings make service quality and customer experience relevant context; they do not show that issuing a digital card produces profit.
 
-Liu-Thompkins et al. (2022) analyse 1,908 effect sizes from 319 studies of cognitive, affective and social drivers of retailer loyalty. The broad retail setting limits direct transfer to small service businesses. Staffing, promotions and service quality should be recorded as potential confounders during a pilot. Access: publisher abstract and introduction; bibliographic metadata cross-checked.
+We consequently define the engineering contribution as reliable event recording, access boundaries and a usable counter workflow. Business benefit is a separate evaluation question. The owner dashboard will report visits and redemptions with named definitions, rather than displaying an unsupported sales-growth estimate.
 
-### Implication for the project
+### A specific design consequence
 
-The literature supports studying loyalty processes. It does not justify treating a digital card, a growing registration count or a positive satisfaction response as evidence of incremental sales.
+FR-06 requires dashboard totals to reproduce a known event dataset. This is a correctness requirement derived by the team, not a result claimed by the marketing studies. A pilot can later investigate whether owners find these measures useful for decisions.
 
-## 03  Digital engagement and progress
+## 03  Progress and digital engagement
 
-### S5  Redemption and engagement change over time
+### Why the card shows progress
 
-Son and Oh (2023) examine mobile technology, reward redemption and engagement transitions using transaction-related analyses and complementary research methods. The reported relationships motivate an activity history and longitudinal observation. They do not prove that a web card is superior to a native application. Access: publisher abstract, notes and metadata.
+Kivetz et al. [S8] study the goal-gradient mechanism in reward programmes. Nunes and Drèze [S12] show that an endowed start can change persistence even when the remaining effort is unchanged. Both concern how a goal is perceived; neither justifies treating an unearned visit as a real purchase.
 
-### S6  Point use depends on external conditions
+The concept therefore shows four confirmed visits out of six, a named reward and two remaining visits. If a business later offers a welcome credit, the interface and ledger must distinguish that promotion from a visit. We defer such promotions in the first implementation so the basic history stays easy to explain.
 
-Jin, Kim and Lee (2024) apply logistic and panel regression to company loyalty data before and during the pandemic. Differences between groups and periods caution against reading every change in point spending as improved retention. Tappix should compare similar periods and record contextual changes. Access: abstract and publisher excerpts.
+### A mobile channel does not remove operational friction
 
-### S7  Feedback and observed behaviour are different evidence
+Son and Oh [S5] investigate reward redemption and engagement as loyalty becomes mobile. Their research motivates recording how guests use rewards over time, rather than counting enrolment alone. It does not establish that our web interface is preferable to a native wallet. We choose a link-based card to reduce installation steps and will test whether guests can find it again.
 
-Kuikka et al. (2025; published online in 2024) analyse 45,603 reviews of UK grocery retailers. Semantic evidence helps identify customer concerns, but review language is not the same as observed repeat purchasing. The setting differs from independent businesses in Kazakhstan. Tappix should combine qualitative feedback with recorded events. Access: abstract and research framing of the open article.
+The staff design includes confirmation before a visit and a separate redemption action. These choices are operational hypotheses: a fast scanner is of little use if a cashier cannot tell whether a timed-out request succeeded. The evaluation must include camera refusal and a response lost after the database commit.
 
-### S8  Visible progress has a theoretical basis
+### Context changes the meaning of activity
 
-Kivetz, Urminsky and Zheng (2006) investigate the goal-gradient hypothesis using field experiments and customer data. This foundational study motivates a visible progress indicator near a reward. Its age and context require renewed evaluation. The design shows actual confirmed visits and does not manufacture progress or promise sales uplift. Access: publisher abstract and the first page of an author-hosted version.
+Jin et al. [S6] analyse point use around a major external disruption and identify differences between usage groups. Kuikka et al. [S7] examine 45,603 grocery-retailer reviews across pandemic-related periods. These contexts are unlike an independent Kazakhstani café, but they show why an activity change needs an explanation beyond the software launch.
 
-### Research gap and limitations
+During a pilot we should record promotions, opening hours, programme-rule changes and interruptions. Qualitative comments can explain a frustrating redemption; they cannot substitute for a visit record. Conversely, a visit total cannot explain why a guest abandoned registration.
 
-The applied question is whether independent businesses can use a shared platform without sharing customer records, while staff complete visits and redemptions without developer assistance. No claim of a new theoretical model is made. Before the final defense, the review should be deepened through university library access and complemented with local empirical evidence.
+### Resulting prototype decisions
 
-## 04  Existing solutions and alternatives
+P02 makes the reward and remaining effort visible. P03 and P04 separate an attempted operation from a confirmed result. P05 separates current available rewards from redemptions within a selected period. These are testable interface decisions, not findings from interviews.
+
+## 04  Measurement and research gap
+
+### The selection problem
+
+Leenheer et al. [S10] use household panel data and model the decision to join a programme. The estimated programme effect is smaller when self-selection is considered. This matters because guests who already visit often may be the first to register. Comparing registered and unregistered guests once would confound the programme with their earlier behaviour.
+
+Liu [S11] follows a convenience-store programme over time and finds different responses among initially heavy, moderate and light buyers. A single average can therefore hide which guests changed behaviour. Tappix should retain timestamps and programme versions so later analysis can distinguish existing regulars from newer guests.
+
+### What the first pilot can answer
+
+A short pilot can establish whether a staff member records a valid visit without help, whether the reward is issued once, and whether the owner understands a metric. It cannot establish a stable retention effect for businesses with infrequent visits. A salon may require a longer observation window than a coffee shop; the period must be chosen before interpreting results.
+
+For example, 45 repeat cards among 90 active cards in one week yields a 50% within-period repeat share. It says nothing about how many of last month’s guests returned this month. A retention cohort would require a separately specified starting population and follow-up window. The distinction is built into the metric definitions and usability questions.
+
+| Evidence | Design or evaluation consequence |
+| --- | --- |
+| Programme context and heterogeneity [S1, S2, S9, S11] | Retain company, programme and period context; avoid a universal uplift claim. |
+| Progress framing [S8, S12] | Show confirmed progress and explicit reward conditions; test comprehension. |
+| Engagement and external changes [S5–S7] | Keep event history and note concurrent operational changes during a pilot. |
+| Selection and outcome measurement [S3, S4, S10] | Separate software correctness, reported experience and causal business effects. |
+
+### Applied contribution
+
+The proposed contribution is a small multi-tenant information system whose reward operations and reports can be reproduced and checked. The literature motivates what to measure; it does not resolve local purchasing decisions, willingness to pay or required staff training. The simulated dialogues in Appendix A generate candidate checks for those unresolved questions.
+
+## 05  Existing solutions and alternatives
 
 Comparison method: documentation review of official product pages [P1–P3], not hands-on account testing. “Unverified” does not mean “unavailable”.
 
@@ -138,7 +165,7 @@ Tappix explores a standalone web card and staff workflow without requiring a cas
 
 Unverified areas include exact role permissions, Kazakh localisation, complete history exports, plan limits and data-hosting terms. Prices are not compared without matching service scope. Willingness to pay remains an open question.
 
-## 05  Technology decisions
+## 06  Technology decisions
 
 The team selected Go, PostgreSQL and Next.js as a starting point. The alternatives below explain the trade-offs; they are not the result of a fabricated benchmark.
 
@@ -160,7 +187,7 @@ Redis [T11] is proposed for sessions, rate limiting and temporary work. PostgreS
 
 This combination fits the students’ responsibilities and the transactional domain. Performance, operating cost and capacity remain to be measured. If access validation is unavailable, sensitive write operations must fail safely.
 
-## 06  Functional requirements
+## 07  Functional requirements
 
 Must denotes core acceptance; Should denotes a lower-priority capability after the accounting and access-control core is validated.
 
@@ -185,7 +212,7 @@ A scanned QR or NFC link identifies a card; it does not authorise a visit. The t
 
 Agree the guest identity and recovery mechanism, reward rollover, corrections and point expiry. Confirm the trial start event, time boundary and post-expiry access. The concept shows activation as one candidate start event; it is not an approved policy. Data retention and the service operator also remain to be confirmed.
 
-## 07  Quality and protection requirements
+## 08  Quality and protection requirements
 
 These are planned acceptance checks, not claims that the new repository already provides the protections.
 
@@ -210,7 +237,7 @@ Durable access versions prevent Redis resets or company reactivation from revivi
 
 Keep PostgreSQL and Redis off public interfaces, protect private files through authorised access, and separate recovery credentials from the server. External encrypted backup storage has not been connected in the diploma repository. Before a pilot, validate actual restoration, alert delivery and expiry reminders independent of the application server.
 
-## 08  System context
+## 09  System context
 
 Four user roles interact with one platform. Each business remains a separate tenant.
 
@@ -224,7 +251,7 @@ Owners and staff operate only within their authorised company. Guests see only c
 
 Backups must survive loss of the application host. A snapshot retained by the same provider may help recovery but does not replace a separately controlled, encrypted copy and a verified restore procedure.
 
-## 09  Principal use cases
+## 10  Principal use cases
 
 The central workflow is identify a card, validate access, commit a visit and redeem an available reward.
 
@@ -240,7 +267,7 @@ Identifying a guest must not automatically credit a visit. Staff first see the m
 
 A foreign-company card produces a clear denial without guest details. A network timeout produces an uncertain state until the same operation can be checked or retried safely. Corrections must create auditable records rather than silently remove history. Exact correction and rollover rules require team review.
 
-## 10  Component architecture
+## 11  Component architecture
 
 A modular monolith keeps deployment manageable while separating presentation, authorisation, accounting and reporting.
 
@@ -250,7 +277,7 @@ Figure 3. Go is the business-rule boundary. Redis is not the authoritative sourc
 
 The interface consumes an explicit REST/JSON contract. Reporting aggregates authorised company events using named definitions. Database transactions cover ledger and reward changes; file authorisation is enforced before returning private content. Database schema and migrations remain a separate implementation task.
 
-## 11  Guest experience
+## 12  Guest experience
 
 New conceptual screens • fictional businesses and sample values • no current-application screenshots
 
@@ -264,7 +291,7 @@ The wallet brings verified cards together without combining programmes. The card
 
 These static SVG/PNG designs were created for this report. Buttons are illustrative; identity verification, QR presentation, navigation and history retrieval are not implemented by the images. The production interface may require Russian and Kazakh localisation.
 
-## 12  Staff experience
+## 13  Staff experience
 
 One qualifying visit and one reward redemption are distinct, auditable operations.
 
@@ -278,7 +305,7 @@ The confirmation screen shows the matched company and intended effect before the
 
 Test camera denial, a foreign-company card, an expired session, a timeout after commit and simultaneous redemption. An alternative lookup must preserve the same access checks. No real QR credential or customer identity appears in these concepts.
 
-## 13  Owner overview
+## 14  Owner overview
 
 The dashboard prioritises a small set of defined measures rather than unsupported growth claims.
 
@@ -297,7 +324,7 @@ The bars use 18, 24, 21, 30, 36, 42 and 33 visits, which sum to 204. This checks
 
 A period repeat-guest share is not a 30-day retention cohort and does not estimate incremental revenue. With no activity, the dashboard should show an explanatory empty state rather than artificial trends.
 
-## 14  Administrator access
+## 15  Administrator access
 
 The administrator connects a business, assigns its effective limits and controls the trial period.
 
@@ -317,7 +344,7 @@ The concept proposes a seven-day window from activation. The team still needs to
 
 The six screens cover the primary four roles. They deliberately omit campaign builders, partner transfers, payment processing, POS integrations and AI features. A complete interaction design still needs enrolment, recovery, empty/error states and accessible keyboard behaviour. Their absence is recorded rather than hidden by a polished appearance.
 
-## 15  Evaluation method
+## 16  Evaluation method
 
 The following thresholds are proposed experiment criteria. No experiment results are reported at this stage.
 
@@ -338,7 +365,7 @@ Proposed pilot targets are an RPO of up to 24 hours and an RTO of up to 4 hours.
 
 After technical checks, a 2–3 business pilot can test operational fit. Record service changes, promotions, staffing and seasonality. A small uncontrolled pilot cannot establish general market demand or causal sales growth. Do not convert five usability participants into a market-success percentage.
 
-## 16  Work plan and collaboration
+## 17  Work plan and collaboration
 
 The first submission is due 24 October 2026. Dates for subsequent milestones remain to be agreed.
 
@@ -371,15 +398,15 @@ Operational data loss: verify independent backups before a pilot.
 
 The English report and newly drawn concepts are an updated delivery edition. This document does not claim that the revision has already been approved, merged or tagged.
 
-## 17  Submission status and next steps
+## 18  Submission status and next steps
 
 Materials are mapped to the supplied first-pre-defense requirements; preparation is not the same as university acceptance.
 
 | Requirement | Evidence in this report | Status |
 | --- | --- | --- |
-| Problem, aim, scope and team | Pages 1–2 and 17 | Prepared |
-| 3–5 real discussions or client agreement | Plan on page 16; recording form on page 21 | Not yet obtained |
-| At least 12 sources, including 8 scientific | 8 studies and 14 official sources; pages 3–6 and 19–20 | Prepared with access limitations |
+| Problem, aim, scope and team | Pages 1–2 and 18 | Prepared |
+| 3–5 real discussions or client agreement | Plan on page 17; AI scenarios in Appendix A | Not yet obtained |
+| At least 12 sources, including 8 scientific | 12 scientific studies plus 14 official sources; pages 20–22 | Prepared with access limitations |
 | 3–5 analogues, 6–10 criteria | 3 products across 8 criteria; manual alternatives included | Prepared |
 | 3 technology choices with alternatives | Go, PostgreSQL and Next.js; two alternatives each | Prepared; no benchmark |
 | Functional and quality requirements | FR and NFR with priorities and acceptance evidence | Prepared; open rules listed |
@@ -387,19 +414,19 @@ Materials are mapped to the supplied first-pre-defense requirements; preparation
 | Principal user-flow prototype | 6 new vector concepts across all four roles | Prepared; static only |
 | Evaluation method and baseline | Usability, isolation, concurrency, load and recovery plan | Prepared; not executed |
 | Git, tasks, ownership and milestones | Repository and YouTrack; dependencies and risks | Peer review and merge pending |
-| Supervisor feedback and response | Review questions and response form on page 22 | Not yet received |
+| Supervisor feedback and response | Teacher comment and response on page 26; adviser role-play separately labelled | Comment received; approval pending |
 
 ### What the team should do next
 
-Send the report and prototype for substantive supervisor comments. Ask whether the proposed scope, evidence and acceptance method meet the milestone. Obtain real user discussions, record observations and revise the problem statement where necessary. AI role scenarios may support preparation, but must not be presented as interviews.
+The teacher requested at least 12 sources and more substantive presentation. This revision adds four scientific studies, thematic synthesis and traceable design decisions. Appendix A contains permitted AI role-play for requirements exploration; it supplies no real participant evidence. Ask the supervisor to confirm whether that exercise is acceptable for this milestone before treating the user-discussion criterion as satisfied.
 
 Yersultan should personally review the repository changes from his account. Address findings before merging and tagging the accepted baseline. Then implement the smallest working API/UI slice and extend it through testable, task-linked pull requests.
 
 This edition replaces the previous Russian report and screenshots for presentation purposes. It does not replace the application, create customer data or establish production readiness.
 
-## 18  Scientific references
+## 19  Scientific references
 
-Source access was documented on 24 October 2026. Access limitations and project implications are discussed on pages 3–4.
+Source access was documented on 24 October 2026. Access limitations and project implications are discussed on pages 3–5.
 
 [S1] Belli, A., O’Rourke, A.-M., Carrillat, F. A., Pupovac, L., Melnyk, V., & Napolova, E. (2022). 40 years of loyalty programs: how effective are they? Generalizations from a meta-analysis. Journal of the Academy of Marketing Science, 50, 147–173.
 
@@ -425,6 +452,10 @@ Source access was documented on 24 October 2026. Access limitations and project 
 
 [DOI](https://doi.org/10.1016/j.elerap.2024.101408)
 
+## Scientific references continued
+
+Sources S7–S12. DOI links identify the published articles; access may require a university subscription.
+
 [S7] Kuikka, A., Hallikainen, H., Tuominen, S., & Laukkanen, T. (2025). What drives customer loyalty in a pandemic? Semantic analysis of grocery retailers. Electronic Commerce Research, 25, 2205–2240. Published online 2024.
 
 [DOI](https://doi.org/10.1007/s10660-024-09857-y)
@@ -433,7 +464,23 @@ Source access was documented on 24 October 2026. Access limitations and project 
 
 [DOI](https://doi.org/10.1509/jmkr.43.1.39)
 
-## 19  Product and technical sources
+[S9] Dorotic, M., Bijmolt, T. H. A., & Verhoef, P. C. (2012). Loyalty programmes: Current knowledge and research directions. International Journal of Management Reviews, 14(3), 217–237.
+
+[DOI](https://doi.org/10.1111/j.1468-2370.2011.00314.x)
+
+[S10] Leenheer, J., van Heerde, H. J., Bijmolt, T. H. A., & Smidts, A. (2007). Do loyalty programs really enhance behavioral loyalty? An empirical analysis accounting for self-selecting members. International Journal of Research in Marketing, 24(1), 31–47.
+
+[DOI](https://doi.org/10.1016/j.ijresmar.2006.10.005)
+
+[S11] Liu, Y. (2007). The long-term impact of loyalty programs on consumer purchase behavior and loyalty. Journal of Marketing, 71(4), 19–35.
+
+[DOI](https://doi.org/10.1509/jmkg.71.4.019)
+
+[S12] Nunes, J. C., & Drèze, X. (2006). The endowed progress effect: How artificial advancement increases effort. Journal of Consumer Research, 32(4), 504–512.
+
+[DOI](https://doi.org/10.1086/500480)
+
+## 20  Product and technical sources
 
 Official documentation supports the comparison and design rationale. Vendor statements are not independent evidence of effectiveness.
 
@@ -501,86 +548,134 @@ Official documentation supports the comparison and design rationale. Vendor stat
 
 The repository is private; a link alone does not grant access. The accompanying report, editable diagrams and prototype images can be reviewed without repository access.
 
-## Appendix A  User discussions
+## Appendix A  Simulated owner discussion
 
-Research protocol and recording form. No participant responses have been collected for this submission.
+AI-generated design exercise. The characters and situations are fictional; no interview took place.
 
-### Recruitment and procedure
+The exercise uses the four-role concept and a six-visit reward rule to expose objections before implementation. The team requested realistic role-play, including disagreement, rather than favourable testimonials. The dialogues are presented in English for this report. They are not translated interview transcripts, a participant sample or evidence of willingness to pay.
 
-Invite 3–5 owners or staff members from independent coffee shops, bakeries or salons. Explain the diploma study and request permission to take anonymised notes. Ask about recent behaviour before showing the prototype. Record disagreement and existing solutions as carefully as positive reactions. Participation does not imply a purchase commitment.
+### Scenario A1  A coffee shop owner
 
-### Questions about past behaviour
+Student: Before I show the screens, how would you handle a guest who says they lost a nearly completed paper card?
 
-Describe the last time you recorded a repeat visit or issued a loyalty reward. What happened from start to finish?
+Owner role: If I recognise them, I might accept what they say. But the next person on shift may not know them. I would not want a new system to turn that argument into a longer queue.
 
-What tool or record did you use, and what happened when a card was lost or a reward was disputed?
+Student: Would a history of confirmed visits help?
 
-How much staff time or money did the last such case require? How did you estimate it?
+Owner role: Maybe. Who corrects a mistake? A cashier can scan the wrong person, especially when two customers are standing together.
 
-Which other solutions have you tried or rejected? What determined that decision?
+Student: We propose showing the matched card before confirmation. An authorised correction would leave an audit record instead of deleting the event.
 
-Who approved the current process, and how was the budget or responsibility agreed?
+Owner role: That sounds useful, but I still need to see how many steps it takes. My current cards do not need a charged phone or a password.
 
-### Record one discussion
+Student: What would you need to see before choosing whether to continue after a trial?
 
-Participant code: ____________________    Date: ____________________
-Role and business type: __________________________________________
-Consent to anonymised notes: ____________________________________
+Owner role: That the staff can use it without calling me, that the numbers make sense, and that I can take my records if I leave. A pretty graph is not enough.
 
-Recent situation and current workaround:
-________________________________________________________________
-________________________________________________________________
+Student: Is seven days enough to judge it?
 
-Observed cost, frequency or consequences, with the participant’s basis:
-________________________________________________________________
-________________________________________________________________
+Owner role: To find annoying parts, probably. To say that people return more often, no. Some regulars might only visit once that week.
 
-Evidence that supports or challenges the proposed problem:
-________________________________________________________________
-________________________________________________________________
+### Candidate requirements and unresolved questions
 
-Resulting requirement or scope change and task link:
-________________________________________________________________
+This scenario motivates a visible confirmation step, an auditable correction and a usable export. It also separates the access trial from the time needed to evaluate retention. The existing requirements FR-03 and FR-06 cover transaction correctness and metrics; correction permissions and export scope still need specification.
 
-Completion rule: retain anonymised notes for each actual discussion, distinguish quotations from interpretation, and summarise both recurring patterns and contradictory observations. Keep contact details and raw personal data outside the repository. An AI role simulation is not an interview.
+Validation to obtain: observe a real shift, record the current lost-card procedure and test a mistaken visit on synthetic data. No operational frequency, acceptable price or customer benefit can be inferred from this role-play.
 
-## Appendix B  Supervisor feedback
+## Appendix A  Simulated staff discussion
 
-Review request and response log. Substantive supervisor feedback on this package has not yet been received.
+AI-generated role-play A2. This is a fictional counter scenario, not a report of observed staff behaviour.
 
-### Questions for the supervisor
+### Scenario A2  A cashier during a busy shift
 
-Is the problem statement and proposed contribution appropriate for this diploma topic?
+Student: The guest has five visits out of six. You scan the card and press Confirm visit. The connection drops before the result appears. What would you do?
 
-Is the four-role scope feasible for two students, and which features should be deferred?
+Staff role: I would probably press it again. The guest is waiting and I cannot tell whether it worked.
 
-Are the literature review, comparisons and source-access limitations sufficient for the first milestone?
+Student: The same operation should return the earlier result if the first request committed. Until we know the result, the screen should say it is being checked.
 
-Are the proposed usability, isolation, concurrency and recovery checks suitable for evaluating the work?
+Staff role: Then do not just show a red error. I will read that as “nothing happened”. And where do I look to check the last visit?
 
-Which revisions and evidence are required before acceptance, and what is the next agreed deadline?
+Student: We need a recent-operation result with the time and resulting progress. Would you issue the free coffee as soon as it reaches six?
 
-### Record feedback after the review
+Staff role: Only if the guest wants it now. They may want to keep the reward for next time. Also, I need to know whether it was already used at the other branch.
 
-Review date and reviewed revision: ________________________________
-Reviewer name: _________________________________________________
-Feedback source or meeting reference: _____________________________
+Student: Redemption is a separate action. The server checks the available reward and records one redemption, even if two staff members submit it.
 
-Comment in the reviewer’s words or a confirmed summary:
-________________________________________________________________
-________________________________________________________________
-________________________________________________________________
+Staff role: What if I scan a card from another café in the same wallet?
 
-Team response and reason for the decision:
-________________________________________________________________
-________________________________________________________________
+Student: It should say that this card belongs to another business and cannot be used here. It must not reveal that business’s customer history.
 
-Responsible student and due date: _________________________________
-Task or change link: ______________________________________________
-Reviewer confirmation, if requested: _______________________________
+Staff role: Good. But do not make me log in again after every customer. I need an individual account that stays usable during my shift, and a clear way to lock it when I leave.
 
-### AI-assisted design questions for discussion
+### Candidate requirements and test cases
 
-These are preparation prompts generated during document drafting, not comments attributed to users or the supervisor: define what happens after trial expiry; distinguish repeat-guest share from retention; test uncertain outcomes after a network timeout; confirm the identity rule for linking several cards. Their relevance must be checked with the team and real participants.
+FR-02, FR-03 and FR-08 cover company boundaries, single-effect writes and staff scope. Add an uncertain-result state to P03, a recent-operation lookup and explicit lock/logout behaviour. A proposed acceptance test drops the response after commit, retries with the same idempotency key and checks that one visit and one reward entitlement exist.
 
-Permission to use AI assistance does not itself constitute approval of the report. Record the actual response, retain unresolved points and revise the submission-status matrix when evidence becomes available.
+The simulated cashier’s tendency to retry is a scenario assumption. Usability testing must establish whether the wording actually prevents an incorrect second action; a server-side duplicate test alone cannot establish that.
+
+## Appendix A  Simulated guest discussion
+
+AI-generated role-play A3. No real guest, account, visit history or consent record is represented.
+
+### Scenario A3  A guest with several cards
+
+Student: You have cards for a café and a salon. Would keeping both in one account make the next visit easier?
+
+Guest role: If I can find the right one quickly. I do not want the café to see when I visit the salon.
+
+Student: The wallet groups cards for your access. Each business receives only its own card and activity. What would make you hesitate at registration?
+
+Guest role: A long form. Also, why do you need my phone number? I do not want messages just because I want a stamp.
+
+Student: The final registration flow needs a clear identity purpose and separate messaging choices. Which part of the sample card is unclear?
+
+Guest role: “Six visits” could mean I get a free drink on the sixth visit or on the seventh. Say exactly when I can use it.
+
+Student: The proposed rule creates a reward after the sixth qualifying visit. Using it is a separate step, subject to the stated programme conditions.
+
+Guest role: And if I change my phone, do I lose all my cards?
+
+Student: Recovery must verify that the account is yours. We should not merge two people just because somebody enters a matching phone number.
+
+### Cross-scenario design actions
+
+| Scenario | Action to specify or test | Acceptance evidence |
+| --- | --- | --- |
+| A1 owner | Correction rights and export; separate trial from pilot duration | Owner interprets a correction history and opens an export. |
+| A2 staff | Uncertain result, recent operation and single redemption | Lost-response and concurrent-operation tests plus a staff task. |
+| A3 guest | Reward wording, private wallet and verified recovery | Guest explains reward timing; cross-company and recovery tests. |
+
+The scenarios produce candidate requirements, not a vote for the idea. No participant counts, satisfaction percentages or purchase commitments are reported. Real discussions should use past-behaviour questions before presenting the prototype and retain anonymised notes, including contradictory observations.
+
+## Appendix B  Review and team response
+
+Actual teacher feedback reported by Armat is separated from an AI-simulated adviser conversation.
+
+### Received feedback
+
+Armat relayed two comments from the teacher on 24 October 2026: the report looked generated, and it needed at least twelve sources. This is a student-reported summary; no signed review, original review file or acceptance of this revision was supplied.
+
+Response: this edition contains twelve scientific publications and fourteen official product or technical sources. The literature section now compares findings, explains limits and connects them to requirements and evaluation choices. Generic summaries have been replaced with specific examples such as the difference between repeat share and retention, and a retry after a lost server response.
+
+### Simulated adviser dialogue
+
+The following exchange was generated with AI for preparation. The adviser is a fictional role and does not represent Elvira Aitmukhanbetova’s words or approval.
+
+Student: We expanded the references. What would still make the report weak?
+
+Adviser role: A longer list is not enough. Explain which decision each source changes. For example, why do you measure repeat visits rather than simply count accounts?
+
+Student: Registration can select people who were already regulars. We therefore separate the event metrics from claims about an increase in loyalty, and state the comparison period.
+
+Adviser role: Then show that distinction in the dashboard and the evaluation plan. What can the committee actually verify at this milestone?
+
+Student: The requirements, diagrams, static concepts and repository checks. The new diploma repository does not yet demonstrate the complete application.
+
+Adviser role: Keep that boundary explicit. Also, these AI dialogues can help you identify missed cases, but they do not tell you how a real owner behaves. Do not report them as interviews.
+
+Student: We label them as simulations and retain field validation as a later task. The next review should confirm the scope and whether this exercise satisfies the milestone’s discussion requirement.
+
+### Outstanding acceptance
+
+The revision addresses the reported source-count and specificity comments. Supervisor acceptance, the adequacy of AI scenarios for the university criterion, and the dates of later milestones still require confirmation. No approval, signature or participant response is generated on behalf of another person.

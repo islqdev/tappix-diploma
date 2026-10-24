@@ -11,9 +11,11 @@ Multi-tenant digital loyalty platform for small businesses in Kazakhstan.
 - [Architecture diagrams](diagrams/README.md)
 - [Review instructions for Yersultan](docs/review/yersultan-guide.md)
 
-Appendices A and B contain user-discussion and supervisor-feedback forms.
-Real responses and approval are still pending. The new concepts replace the
-earlier application screenshots in the current presentation.
+The revised report has 26 pages, 12 scientific studies and 14 official sources.
+Appendix A contains three explicitly labelled AI role simulations. Appendix B
+records teacher feedback relayed by Armat and a separate simulated adviser dialogue.
+Real participant evidence and acceptance of the revision remain pending.
+The new concepts replace the earlier application screenshots in the current presentation.
 
 **Русский:** Разработка информационной системы управления взаимодействием
 предприятий малого бизнеса с клиентами на основе цифровых программ лояльности.
