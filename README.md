@@ -40,7 +40,9 @@ Planned users and outcomes:
 | Камбеков Ерсұлтан Болатбекұлы | Go, PostgreSQL, Redis, Docker, Nginx and CI/CD |
 
 Supervisor: Айтмұханбетова Эльвира Айтмұханбетқызы (from the application).
-Milestone dates and the supervisor's account for access remain to be confirmed.
+First pre-defense submission: 24 October 2026, confirmed by Armat.
+Later milestones and the supervisor's account for private access remain unconfirmed.
+Ersultan7 has accepted GitHub collaborator access; peer review is still required.
 
 ## Structure
 
@@ -65,6 +67,11 @@ Milestone dates and the supervisor's account for access remain to be confirmed.
 - [Architecture decision](docs/ADR/0001-modular-monolith.md)
 - [Evidence register](docs/literature/README.md)
 - [Comparisons](docs/comparisons/README.md)
+- [First pre-defense report](docs/report/README.md)
+- [Submission criteria](docs/report/submission-checklist.md)
+- [Static prototype](docs/prototype/README.md)
+- [Diagrams](diagrams/README.md)
+- [Evaluation plan](docs/requirements/evidence-and-evaluation.md)
 - [Work plan](tasks/plan.md)
 - [Contribution rules](CONTRIBUTING.md)
 
