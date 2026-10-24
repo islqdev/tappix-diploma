@@ -1,0 +1,36 @@
+digraph UseCases {
+  graph [rankdir=LR, bgcolor="white", pad=0.25, nodesep=0.25, ranksep=0.55, fontname="Arial", label="Tappix · Use Case\nОсновные сценарии и обязательные проверки", labelloc=t, fontsize=20];
+  node [fontname="Arial", fontsize=13, color="#80929D", margin="0.15,0.1"];
+  edge [fontname="Arial", fontsize=10, color="#748690", arrowsize=0.65];
+  admin [shape=box, label="Администратор"];
+  owner [shape=box, label="Владелец"];
+  staff [shape=box, label="Сотрудник"];
+  guest [shape=box, label="Гость"];
+  {rank=same; admin; owner; staff; guest;}
+  subgraph cluster_system {
+    label="Граница Tappix"; color="#BCC9D0"; fontname="Arial"; fontsize=13;
+    node [shape=ellipse, style=filled, fillcolor="#F2F6F7"];
+    provision [label="UC1 Подключить компанию\nНазначить 7 дней демо"];
+    configure [label="UC2 Настроить программу\nи права сотрудников"];
+    analytics [label="UC3 Просмотреть показатели\nсвоей компании"];
+    visit [label="UC4 Подтвердить визит"];
+    reward [label="UC5 Выдать доступную награду"];
+    card [label="UC6 Посмотреть свою карту\nи историю"];
+    wallet [label="UC7 Добавить карту в кошелёк\nпосле проверки личности"];
+    access [label="Проверить сессию, роль,\nстатус и принадлежность", fillcolor="#E2F1EB"];
+    atomic [label="Проверить условие и записать\nоперацию атомарно\nс ключом идемпотентности", fillcolor="#E2F1EB"];
+  }
+  admin -> provision [arrowhead=none];
+  owner -> configure [arrowhead=none]; owner -> analytics [arrowhead=none];
+  staff -> visit [arrowhead=none]; staff -> reward [arrowhead=none];
+  guest -> card [arrowhead=none]; guest -> wallet [arrowhead=none];
+  provision -> access [style=dashed, label="include"];
+  configure -> access [style=dashed, label="include"];
+  analytics -> access [style=dashed, label="include"];
+  visit -> access [style=dashed, label="include"];
+  reward -> access [style=dashed, label="include"];
+  card -> access [style=dashed, label="include"];
+  wallet -> access [style=dashed, label="include"];
+  visit -> atomic [style=dashed, label="include"];
+  reward -> atomic [style=dashed, label="include"];
+}

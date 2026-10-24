@@ -1,0 +1,21 @@
+digraph Context {
+  graph [rankdir=TB, bgcolor="white", pad=0.3, nodesep=0.4, ranksep=0.65, fontname="Arial", label="Tappix · System Context\nПроектируемая система · 24.10.2026", labelloc=t, fontsize=20];
+  node [shape=box, style="rounded,filled", fillcolor="#F2F5F7", color="#A9B8C3", fontname="Arial", fontsize=14, margin="0.18,0.14"];
+  edge [fontname="Arial", fontsize=11, color="#637580", arrowsize=0.7];
+  admin [label="Администратор платформы\nКомпании, тарифы, пробный доступ"];
+  owner [label="Владелец компании\nПравила, сотрудники, аналитика"];
+  staff [label="Сотрудник компании\nВизит и выдача награды"];
+  guest [label="Гость\nКарта, прогресс, история"];
+  {rank=same; admin; owner;}
+  tappix [label="TAPPIX\nВеб-платформа цифровой лояльности\n\nДоступ определяется ролью и компанией\nДанные компаний изолированы", fillcolor="#E2F1EB", color="#39765E", penwidth=1.5, fontsize=17];
+  {rank=same; staff; guest;}
+  admin -> tappix [label="Подключает / ограничивает"];
+  owner -> tappix [label="Управляет своей компанией"];
+  tappix -> staff [dir=both, label="Разрешённые операции / результат"];
+  tappix -> guest [dir=both, label="Запрос своей карты / состояние"];
+  backup [label="Независимое хранилище\nЗашифрованные копии БД и файлов\nПодключение ещё не выполнено", style="rounded,dashed", fillcolor="white"];
+  notify [label="Провайдер уведомлений\nВосстановление доступа и аварии\nКанал подлежит проверке", style="rounded,dashed", fillcolor="white"];
+  tappix -> backup [style=dashed, label="Плановая выгрузка"];
+  tappix -> notify [style=dashed, label="Минимум персональных данных"];
+  staff -> backup [style=invis]; guest -> notify [style=invis];
+}

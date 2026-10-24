@@ -1,0 +1,30 @@
+digraph Components {
+  graph [rankdir=TB, bgcolor="white", pad=0.25, nodesep=0.3, ranksep=0.5, fontname="Arial", label="Tappix · Component\nПредварительный модульный монолит", labelloc=t, fontsize=20];
+  node [shape=box, style="rounded,filled", fillcolor="#F2F5F7", color="#91A5B0", fontname="Arial", fontsize=13, margin="0.17,0.12"];
+  edge [fontname="Arial", fontsize=10, color="#637580", arrowsize=0.65];
+  browser [label="Браузер\n4 роли · мобильный / desktop"];
+  nginx [label="Nginx\nHTTPS · маршрутизация · лимит тела"];
+  next [label="Next.js / React / TypeScript\nПредставление и состояния UI\nНе источник разрешений", fillcolor="#E6EEF8"];
+  browser -> nginx [label="HTTPS"];
+  nginx -> next [label="Страницы / ресурсы"];
+  subgraph cluster_api {
+    label="Go REST API · серверная граница"; labeljust=l; fontsize=14; margin=20; color="#39765E"; fontname="Arial";
+    gate [label="Auth и tenant context\nСессия, права, статус компании", fillcolor="#E2F1EB"];
+    loyalty [label="Loyalty\nВизиты · награды · ledger\nТранзакция и идемпотентность"];
+    management [label="Management\nКомпании · филиалы · сотрудники\nТарифы и лимиты"];
+    reporting [label="Reporting\nАгрегации по company_id\nОпределённые метрики"];
+    gate -> loyalty; gate -> management; gate -> reporting;
+  }
+  nginx -> gate [label="/api · cookie / CSRF"];
+  next -> gate [style=dashed, label="Контракт OpenAPI"];
+  pg [shape=cylinder, label="PostgreSQL\nПостоянные события и связи\ncompany_id · версии доступа\nledger · аудит", fillcolor="#E2F1EB"];
+  redis [shape=cylinder, label="Redis\nСессии · rate limit · очередь\nНе источник баланса"];
+  files [shape=folder, label="Закрытые файлы\nПроверка доступа через API"];
+  loyalty -> pg [label="SQL transaction"];
+  management -> pg;
+  reporting -> pg [label="Tenant-scoped read"];
+  gate -> redis [label="Временное состояние"];
+  management -> files [label="Метаданные в БД"];
+  backups [label="Резервное копирование\nСогласованная копия БД и файлов\nШифрование · внешний аккаунт\nПроверка восстановления", style="rounded,dashed", fillcolor="white"];
+  pg -> backups [style=dashed]; files -> backups [style=dashed];
+}
