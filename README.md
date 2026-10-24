@@ -57,7 +57,11 @@ Planned users and outcomes:
 Supervisor: Айтмұханбетова Эльвира Айтмұханбетқызы (from the application).
 First pre-defense submission: 24 October 2026, confirmed by Armat.
 Later milestones and the supervisor's account for private access remain unconfirmed.
-Ersultan7 has accepted GitHub collaborator access; peer review is still required.
+PR #1–6 were merged after AI-assisted reviews submitted from Ersultan7's account
+with Yersultan present. Their comments disclose this method; independent manual
+review of the implementation is still needed as that work is developed.
+The first submitted snapshot is tagged `pre-defense-1` and `prob-period-1` at
+`ef4d350aa3d554535152f0bdb70a3fd40a730d4e`.
 
 ## Structure
 
