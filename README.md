@@ -2,6 +2,19 @@
 
 Multi-tenant digital loyalty platform for small businesses in Kazakhstan.
 
+## First pre-defense materials
+
+- [English report — PDF](docs/report/en/Tappix-Pre-Defense-Report-EN.pdf)
+- [Editable report — Word](docs/report/en/Tappix-Pre-Defense-Report-EN.docx)
+- [Read the report on GitHub](docs/report/README.md)
+- [Six newly drawn prototype concepts](docs/prototype/README.md)
+- [Architecture diagrams](diagrams/README.md)
+- [Review instructions for Yersultan](docs/review/yersultan-guide.md)
+
+Appendices A and B contain user-discussion and supervisor-feedback forms.
+Real responses and approval are still pending. The new concepts replace the
+earlier application screenshots in the current presentation.
+
 **Русский:** Разработка информационной системы управления взаимодействием
 предприятий малого бизнеса с клиентами на основе цифровых программ лояльности.
 
@@ -88,6 +101,13 @@ The checks validate directory structure, basic local Markdown links, ignore rule
 common forbidden tracked artifacts and text whitespace. They do not establish
 application correctness or prove the absence of secrets. New test files must be
 staged before running checks that inspect the Git index.
+
+Only the two reviewed report exports named above are allowed through the document
+exclusion rule. CI verifies exact paths, file signatures and a SHA-256 manifest;
+this is an integrity check, not proof that the content is non-sensitive.
+All other PDF/DOCX files remain excluded, alongside the existing common secret
+and backup patterns. These patterns are not exhaustive: CSV, legacy DOC and
+arbitrarily named JSON files still require content review before committing.
 
 The application, Docker environment, and application test suites have not been
 implemented in this new repository. Their tasks must be completed before a runnable

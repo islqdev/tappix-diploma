@@ -1,93 +1,55 @@
-# Статический прототип Tappix
+# Tappix concept prototype
 
-[DIP-13](https://tappix-diploma.youtrack.cloud/issue/DIP-13), 24.10.2026.
-Цель: обсудить основной сценарий без разработки нового приложения.
-Это изображения существующего прототипа, а не реализация в новом репозитории.
-Все показанные значения демонстрационные. Прототип не доказывает корректность
-начислений, изоляцию данных, безопасность QR или эффект для бизнеса.
+[DIP-13](https://tappix-diploma.youtrack.cloud/issue/DIP-13), updated 24 October 2026.
 
-## Граница первой версии
+Six new static vector concepts explain the four-role workflow. They were drawn
+for this diploma package with AI assistance, without application screenshots.
+Businesses, guest identifiers and activity values are fictional. Editable SVG
+sources accompany PNG exports. Earlier screenshots are superseded in this edition
+and remain only in Git history.
 
-Оставлены карта гостя, прогресс посещений, действие сотрудника, выдача награды
-и простые показатели владельца. Исключены из визуального прототипа рулетка,
-партнёрства, кампании, платные рассылки, POS-интеграции, сложные отчёты и биллинг.
-Гостевой кошелёк и административное подключение остаются требованиями проекта,
-но отдельные экраны для них в этой версии не представлены. Фото персональных
-аккаунтов и скриншоты реальных баз клиентов не использованы.
+## Guest wallet and progress
 
-## Сценарий
+![Guest wallet and progress](guest-journey.png)
 
-### P01 Карта до награды
+P01 keeps separate business cards in one wallet, not a payment wallet. P02 shows
+four of six confirmed visits. Linking cards requires verified ownership.
 
-![Карта и отметка визита](01-progress.png)
+- [P01 wallet](01-guest-wallet.png) · [SVG](01-guest-wallet.svg)
+- [P02 progress](02-guest-progress.png) · [SVG](02-guest-progress.svg)
 
-Гость видит четыре подтверждённых визита из шести. Сотрудник видит текущее состояние
-и действие отметки. Награда недоступна до порога. В демо оба представления рядом
-для объяснения; в целевой системе роли разделены проверками сервера.
+## Staff confirmation and reward
 
-### P02 Награда доступна
+![Visit confirmation and reward redemption](staff-journey.png)
 
-![Доступная награда](02-reward-ready.png)
+P03 begins at five visits, a later state than P02. One qualifying visit unlocks
+P04. Redemption is a distinct operation. Its success must remove the redemption
+action; server-side transactions and idempotency must prevent repeats.
 
-После двух демонстрационных визитов достигнут порог. Доступность награды выражена
-текстом и состоянием кнопки, не только цветом. Настоящая выдача должна проверять
-условие на сервере заново; кнопка не является защитой от повторного запроса.
+- [P03 confirmation](03-staff-confirmation.png) · [SVG](03-staff-confirmation.svg)
+- [P04 redemption](04-reward-redemption.png) · [SVG](04-reward-redemption.svg)
 
-### P03 Награда выдана
+## Owner overview
 
-![Награда выдана](03-reward-issued.png)
+![Fictional weekly overview](05-owner-overview.png)
 
-После выдачи повторное действие недоступно. Это визуальный референс терминального
-состояния демо. Для новой реализации требуется определить переход к следующему
-циклу, отмену ошибочной операции и журнал. «Начать заново» относится только к демо
-и не должен удалять реальную историю.
+P05 shows 204 visits (18 + 24 + 21 + 30 + 36 + 42 + 33), 90 active guests and
+45 repeat guests. The resulting 50% is a period repeat-guest share, not retention
+or sales uplift. Twelve redeemed rewards and eight currently available rewards
+are different measures. [SVG](05-owner-overview.svg).
 
-### P04 Идентификация карты
+## Administrator trial
 
-![Демонстрационный QR](04-demo-qr.png)
+![Administrator trial setup](06-admin-trial.png)
 
-QR специально содержит тестовое сообщение, не credential и не действующую ссылку
-доступа. В реальном сценарии сотрудник сканирует карту в своей компании;
-чужая карта должна давать понятный отказ без раскрытия данных другого заведения.
+P06 illustrates seven-day access, candidate pilot limits and payment not recorded.
+Limits are not approved commercial terms. Expiry rules need agreement and must
+not silently delete customer data. [SVG](06-admin-trial.svg).
 
-### P05 Показатели владельца
+## Evaluation limits
 
-![Четыре показателя](05-owner-metrics.webp)
-
-Сокращённый фрагмент существующего демонстрационного обзора. Числа и проценты не
-взяты из пилота. В новой реализации нужны явный период, фильтр филиала, определения
-метрик и состояние «нет данных». Обозначение «вернувшиеся» уточняется по методике
-оценки; сумма карточек на экране не служит проверкой расчёта.
-
-### P06 Динамика посещений
-
-![Посещения по дням](06-owner-chart.webp)
-
-Референс одного графика за период. Для проверки пригодности владельцу нужно
-попросить объяснить изменение посещений и найти день максимума без подсказки.
-Результат такого пользовательского теста ещё не получен.
-
-## Непоказанные состояния
-
-| Условие | Требуемое поведение новой реализации |
-| --- | --- |
-| Нет сети после отправки | Не обещать успех; повтор с тем же ключом и сверка результата |
-| Камера запрещена | Понятная причина и разрешённый альтернативный поиск карты |
-| Карта другой компании | Отказ без имени, телефона и прогресса чужого гостя |
-| Сессия истекла | Повторный вход, без потери понимания статуса последней операции |
-| Награда уже выдана | Показать актуальный статус, не повторять начисление/выдачу |
-| Нет событий за период | Нули и объяснение отсутствия данных, не искусственные графики |
-
-## Происхождение и воспроизводимость
-
-P01–P04: снимки `http://localhost:19088/demo` в Chrome 24.10.2026.
-Действия: начальные 4/6; два раза «Засчитать демо-визит»; «Выдать награду»;
-«Показать QR». Запросы создания реальных клиентов не выполнялись.
-P05–P06: готовые демонстрационные изображения существующего Tappix:
-`apps/business/public/marketing/overview-v2/mobile-metrics-light.webp` и
-`mobile-chart-light.webp`. Перенесены только изображения, не код и не данные БД.
-Изображения ИИ не генерировались. Существующий проект и его история не изменены.
-
-Проверено визуально: текст читается, ключевые состояния различимы, демонстрационные
-данные помечены. Реальное удобство, камера, API и восстановление доступа этим не
-проверены. После ревью макеты могут быть изменены до начала реализации.
+Images do not implement camera access, authentication, tenant isolation or reward
+accounting. Enrolment, recovery, denied access, empty states, timeouts and keyboard
+interaction require further design and tests. No real QR credentials or customer
+records are embedded. POS integrations, campaigns, partner transfers, payment
+processing and AI features are outside this concept. See the [report](../report/README.md).

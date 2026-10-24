@@ -27,8 +27,8 @@ YouTrack: https://tappix-diploma.youtrack.cloud/projects/DIP/issues
 | [DIP-10](https://tappix-diploma.youtrack.cloud/issue/DIP-10) | Армат | Ограничение защиты main и порядок ревью | 24.10.2026; ограничение описано ниже |
 | [DIP-11](https://tappix-diploma.youtrack.cloud/issue/DIP-11) | Армат | 8 научных работ, 3 аналога × 8 критериев, 3 выбора технологий и план оценки; PR #3 | 24.10.2026; ревью |
 | [DIP-12](https://tappix-diploma.youtrack.cloud/issue/DIP-12) | Армат | Context, Use Case, Component: DOT + PNG + SVG; PR #4 | 24.10.2026; ревью |
-| [DIP-13](https://tappix-diploma.youtrack.cloud/issue/DIP-13) | Армат | 6 статических экранов, происхождение, сценарии и границы; PR #5 | 24.10.2026; ревью |
-| [DIP-14](https://tappix-diploma.youtrack.cloud/issue/DIP-14) | Армат | Отчёт DOCX/PDF, пакет и матрица критериев, визуальная проверка | 24.10.2026 |
+| [DIP-13](https://tappix-diploma.youtrack.cloud/issue/DIP-13) | Армат | 6 новых SVG/PNG-макетов; прежний прототип PR #5 заменён в PR #6 | 24.10.2026; ревью |
+| [DIP-14](https://tappix-diploma.youtrack.cloud/issue/DIP-14) | Армат | Английский отчёт DOCX/PDF в Git, 22 страницы, протокол исследования и форма отзыва, матрица критериев | 24.10.2026 |
 
 ## Git и честная фиксация вклада
 
