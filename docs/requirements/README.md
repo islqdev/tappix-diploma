@@ -1,29 +1,30 @@
-# Initial Requirements
+# Функциональные требования
 
-Source: the team's project brief. Status: draft for team/supervisor review.
+Основание: описание проекта командой. Статус: проект для ревью команды и руководителя.
+Must — обязательное требование; Should — желательное после проверки ядра.
 
-| ID | Priority | Capability | Acceptance scenario |
+| ID | Приоритет | Возможность | Критерий приёмки |
 | --- | --- | --- | --- |
-| FR-01 | Must | Platform-only company provisioning | Owner cannot create another company through a direct API call |
-| FR-02 | Must | Roles and tenant isolation | Company A cannot read or mutate B's resources by changing an ID |
-| FR-03 | Must | Visit-based rewards | The threshold visit enables one reward; concurrent retries do not duplicate it |
-| FR-04 | Must | Points ledger | Credit/debit operations are atomic; the computed balance matches ledger entries |
-| FR-05 | Must | Guest wallet | A verified guest can access their cards from multiple companies; no company receives another's data |
-| FR-06 | Must | Owner metrics | Named metric definitions reproduce totals from synthetic visits and reward events |
-| FR-07 | Must | Plans, custom limits and trial | Effective limits and usage agree in API/UI; expiry is enforced server-side |
-| FR-08 | Must | Staff and branches | Staff can be assigned only to branches in their own company |
-| FR-09 | Should | Discount program | Eligible discount is displayed with its program rules; no monetary payment is recorded |
-| FR-10 | Must | Recovery | Restore database and files in an isolated environment and verify linked attachments |
+| FR-01 | Must | Подключение компании администратором | Владелец не может создать другую компанию прямым API-запросом |
+| FR-02 | Must | Роли и изоляция компаний | Компания A не читает и не изменяет ресурсы B при подмене ID |
+| FR-03 | Must | Награды за визиты | Пороговый визит открывает одну награду; параллельные повторы не дублируют её |
+| FR-04 | Must | Леджер баллов | Начисление и списание атомарны; баланс соответствует сумме записей леджера |
+| FR-05 | Must | Гостевой кошелёк | Подтверждённый гость видит свои карты нескольких компаний; компании не получают чужие данные |
+| FR-06 | Must | Показатели владельца | Определения метрик воспроизводят итоги по синтетическим визитам и наградам |
+| FR-07 | Must | Тарифы, лимиты и пробный срок | Фактические лимиты и расход совпадают в API/UI; окончание срока проверяет сервер |
+| FR-08 | Must | Сотрудники и филиалы | Сотрудник назначается только в филиал своей компании |
+| FR-09 | Should | Программа скидок | Применимая скидка показана вместе с условиями; платёж не регистрируется |
+| FR-10 | Must | Восстановление | БД и файлы восстанавливаются в изолированной среде с проверкой связанных вложений |
 
-Security and quality requirements: [CONSTRAINTS.md](../../CONSTRAINTS.md).
-Each implementation issue must name the requirement IDs it proves.
+Требования безопасности и качества: [CONSTRAINTS.md](../../CONSTRAINTS.md).
+Каждая задача реализации должна указывать проверяемые ID требований.
 
-## Decisions Needed Before Implementation
+## Решения до реализации
 
-- Guest identity verification and account recovery method, including delivery cost.
-- Reward rollover, refunds/corrections and point expiry semantics.
-- Trial start event, end-boundary timezone and post-expiry access policy.
-- Retention, privacy documents and who legally operates the service.
-- Pilot workload, availability targets and acceptable data-loss/recovery windows.
+- Подтверждение личности гостя и восстановление доступа, включая стоимость отправок.
+- Переход к следующей награде, отмена/исправление операции и истечение баллов.
+- Начало пробного срока, часовой пояс границы и доступ после окончания.
+- Срок хранения, документы обработки данных и оператор сервиса.
+- Нагрузка пилота, доступность, допустимая потеря данных и время восстановления.
 
-These are unresolved decisions, not hidden defaults or completed functionality.
+Это открытые решения, а не скрытые значения по умолчанию или готовые функции.

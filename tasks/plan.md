@@ -1,61 +1,61 @@
-# Bootstrap Plan
+# План Tappix
 
-## Current State
+Состояние на 24.10.2026. Первая сдача — 24 октября, подтверждено Арматом.
+Сроки следующих предзащит согласуются отдельно. Старое обоснование уже сдано;
+его изменение в этот этап не входит. Рабочее приложение остаётся отдельным проектом.
 
-Private remote repository created: https://github.com/islqdev/tappix-diploma
-YouTrack project: https://tappix-diploma.youtrack.cloud/projects/DIP/issues
-Kanban: https://tappix-diploma.youtrack.cloud/agiles/204-1/218-1
-The existing Tappix prototype remains separate and unchanged by this work.
+Репозиторий: https://github.com/islqdev/tappix-diploma
+YouTrack: https://tappix-diploma.youtrack.cloud/projects/DIP/issues
+Доска: https://tappix-diploma.youtrack.cloud/agiles/204-1/218-1
 
-## First Stage
+## Ответственность и результаты
 
-1. DIP-1: establish GitHub ownership, YouTrack project and initial Git safeguards.
-2. DIP-2: submit project documentation as a separate task branch and PR.
-3. DIP-3: add repository checks in CI, without claiming application test coverage.
-4. DIP-4: add an executable Go health slice with tests and CI.
-5. DIP-5: add an executable Next.js shell and tests.
-6. DIP-6: add isolated Docker/Nginx configuration and integration smoke tests.
+Состояния задач уточняются в YouTrack; таблица фиксирует результат и приёмку,
+а не подменяет журнал действий. Исполнитель означает ответственного за задачу.
 
-Canonical task tracker: YouTrack. The links below point to created issues.
-Do not fabricate completed states, dates, reviews or pilot evidence.
+| Задача | Ответственный | Результат и критерий приёмки | Срок или зависимость |
+| --- | --- | --- | --- |
+| [DIP-1](https://tappix-diploma.youtrack.cloud/issue/DIP-1) | Армат | Закрытый GitHub, YouTrack и начальные правила Git | Выполнено, 24.10.2026 |
+| [DIP-2](https://tappix-diploma.youtrack.cloud/issue/DIP-2) | Армат | README, scope, требования; PR #1 с ревью коллеги | 24.10.2026; ревью ожидается |
+| [DIP-3](https://tappix-diploma.youtrack.cloud/issue/DIP-3) | Ерсұлтан | CI проверяет структуру и документы; PR #2 | 24.10.2026; подготовил Армат с ИИ, ревью ожидается |
+| [DIP-4](https://tappix-diploma.youtrack.cloud/issue/DIP-4) | Ерсұлтан | Go health endpoint и тесты контракта | После DIP-3, дата не согласована |
+| [DIP-5](https://tappix-diploma.youtrack.cloud/issue/DIP-5) | Армат | Next.js shell и тесты первого маршрута | После DIP-3 и контракта DIP-4; дата не согласована |
+| [DIP-6](https://tappix-diploma.youtrack.cloud/issue/DIP-6) | Ерсұлтан | Изолированный Docker/Nginx, запуск и smoke test | После DIP-4/5; дата не согласована |
+| [DIP-7](https://tappix-diploma.youtrack.cloud/issue/DIP-7) | Ерсұлтан | ER, миграции, tenant-связи и проверка отката | После правил предметной области; дата не согласована |
+| [DIP-8](https://tappix-diploma.youtrack.cloud/issue/DIP-8) | Армат | Доказательная база и оценка; материалы выделены в DIP-11 | ИИ-сценарии подготовлены; реальная валидация и принятие руководителем ожидаются |
+| [DIP-9](https://tappix-diploma.youtrack.cloud/issue/DIP-9) | Армат | Доступы команды и согласованные сроки | GitHub принят, YouTrack создан; даты следующих этапов неизвестны |
+| [DIP-10](https://tappix-diploma.youtrack.cloud/issue/DIP-10) | Армат | Ограничение защиты main и порядок ревью | 24.10.2026; ограничение описано ниже |
+| [DIP-11](https://tappix-diploma.youtrack.cloud/issue/DIP-11) | Армат | 12 научных работ, 3 аналога × 8 критериев, 3 выбора технологий и план оценки; PR #3, расширение в PR #6 | 24.10.2026; ревью |
+| [DIP-12](https://tappix-diploma.youtrack.cloud/issue/DIP-12) | Армат | Context, Use Case, Component: DOT + PNG + SVG; PR #4 | 24.10.2026; ревью |
+| [DIP-13](https://tappix-diploma.youtrack.cloud/issue/DIP-13) | Армат | 6 новых SVG/PNG-макетов; прежний прототип PR #5 заменён в PR #6 | 24.10.2026; ревью |
+| [DIP-14](https://tappix-diploma.youtrack.cloud/issue/DIP-14) | Армат | Английский отчёт DOCX/PDF в Git, 26 страниц, 12 научных источников, ИИ-сценарии и реакция на замечание преподавателя, матрица критериев | 24.10.2026 |
 
-## Risks and Open Inputs
+## Git и честная фиксация вклада
 
-- GitHub CLI identity is verified as `islqdev`; local Git uses its noreply email.
-- YouTrack was activated by the account owner; the current account is `admin`.
-- Teammate GitHub/YouTrack account and supervisor access are not yet confirmed.
-- No university milestone deadlines are provided; proposed task estimates below
-  are relative durations, not agreed dates or retrospective work records.
-- Proposal PDF refers to the previous Web-GIS topic; it needs a separately reviewed
-  update. Signed approvals and real personal data do not belong in the code repository.
+GitHub Армата — islqdev, Ерсұлтана — Ersultan7; приглашение принято.
+YouTrack: Armat и ersultankambekov. Каждый использует собственный аккаунт.
+ИИ-подготовка материалов под аккаунтом Армата не считается личным вкладом Ерсұлтана.
+Его самостоятельное ревью и изменения будут отражены его действиями.
 
-## Task Index
+PR зависимы: #1 → #2 → #3 → #4 → #5 → отчёт. Проверять различия относительно
+непосредственной базы; после одобрения объединять по порядку, перенаправляя
+следующий PR в main. Не переписывать историю и не выполнять ревью от чужого имени.
+Прямой push в main не используется. Запрос настройки branch protection вернул 403:
+для текущего приватного репозитория защита не подтверждена. Процедура ревью
+является правилом команды, а не принудительно включённой защитой GitHub.
 
-| Issue | Responsible member | Deliverable | Proposed duration | Depends on |
-| --- | --- | --- | --- | --- |
-| [DIP-1](https://tappix-diploma.youtrack.cloud/issue/DIP-1) | Armat | Private GitHub and YouTrack; initial Git safeguards | 24 October 2026, proposed | None |
-| [DIP-2](https://tappix-diploma.youtrack.cloud/issue/DIP-2) | Armat | README, requirements, scope and PR workflow | 1 working day | DIP-1 |
-| [DIP-3](https://tappix-diploma.youtrack.cloud/issue/DIP-3) | Yersultan | Repository checks and CI | 1 working day | DIP-2 |
-| [DIP-4](https://tappix-diploma.youtrack.cloud/issue/DIP-4) | Yersultan | Go health endpoint and tests | 1 working day | DIP-2, DIP-3 |
-| [DIP-5](https://tappix-diploma.youtrack.cloud/issue/DIP-5) | Armat | Next.js shell and tests | 2 working days | DIP-2, DIP-3, DIP-4 contract |
-| [DIP-6](https://tappix-diploma.youtrack.cloud/issue/DIP-6) | Yersultan | Isolated Docker/Nginx environment | 1 working day | DIP-4, DIP-5 |
-| [DIP-7](https://tappix-diploma.youtrack.cloud/issue/DIP-7) | Yersultan | Schema, ER diagram and migrations | Estimate after rules review | DIP-2, DIP-6 |
-| [DIP-8](https://tappix-diploma.youtrack.cloud/issue/DIP-8) | Armat | Literature, comparisons and evaluation plan | Agree with supervisor | DIP-2 |
+Тег pre-defense-1 пока не создан. После личного ревью коллеги и merge поставить
+его на фактически сдаваемую версию, записать SHA и не перемещать в дальнейшем.
+Ссылка на закрытый репозиторий не даёт руководителю доступа автоматически;
+до получения её GitHub-логина можно передать автономный пакет материалов.
 
-Detailed acceptance criteria live in YouTrack. Responsible members are the brief's
-ownership assignments, not claims that someone
-has completed or personally reviewed AI-prepared work. Confirm actual assignees and
-calendar deadlines in YouTrack with both students.
+## Риски и следующий этап
 
-## Exit Checkpoint
-
-- [ ] Both students have separate verified accounts and access.
-- [ ] Real issues link to real commits/PRs.
-- [ ] Bootstrap/documentation PR received peer review.
-- [ ] Go API and Next.js shell run with isolated dependencies.
-- [ ] Lint, tests and builds pass in CI.
-- [ ] Working prototype data and history are untouched.
-
-Later stages follow the supplied plan: schema, auth/isolation, loyalty, role workflows,
-plans/trials, operational verification and real pilots. Break them into testable
-issues after the first-stage architecture and contracts are reviewed.
+1. Нет интервью и содержательного отзыва руководителя — получить реальные записи
+   и согласовать допустимость текущей сдачи, не заменять их ИИ-ответами.
+2. Не решены идентификация гостя, отмена награды и точная граница пробного срока —
+   согласовать до схемы и API, иначе возникнет переделка учёта.
+3. Нет новой работающей реализации — после ревью выполнять DIP-4/5/6 небольшими PR.
+4. Внешние бэкапы и production не настроены в этом репозитории — провести отдельное
+   восстановление БД и вложений до пилота.
+5. Объём ограничить ядром; интеграции и ИИ-функции не добавлять к первой версии.

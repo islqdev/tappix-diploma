@@ -32,3 +32,6 @@ artifacts/
 *.zip
 *.docx
 *.pdf
+# Reviewed diploma deliverables only; all other documents stay excluded.
+!docs/report/en/Tappix-Pre-Defense-Report-EN.pdf
+!docs/report/en/Tappix-Pre-Defense-Report-EN.docx
